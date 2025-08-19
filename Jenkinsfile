@@ -49,7 +49,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'ANSIBLE_VAULT_PASS', variable: 'VAULT_PASS')]) {
                         sh """
                         ansible-playbook -i inventory.ini playbook.yml \
-                        --extra-vars "ansible_become_pass=$VAULT_PASS" 
+                        --extra-vars "ansible_become_pass=\$VAULT_PASS" 
                         """
                     }
                 }
