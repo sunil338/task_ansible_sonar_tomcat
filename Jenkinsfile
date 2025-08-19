@@ -45,7 +45,7 @@ pipeline {
 
         stage('Deploy to Tomcat') {
             steps {
-                dir('devops_login/devops_login/ansible') { 
+                dir('ansible') { 
                     withCredentials([string(credentialsId: 'ANSIBLE_VAULT_PASS', variable: 'VAULT_PASS')]) {
                         sh """
                         ansible-playbook -i inventory.ini playbook.yml \
@@ -57,14 +57,3 @@ pipeline {
         }
     }
 }
-
-A
-A
-A
-A
-A
-A
-A
-B
-B
-
