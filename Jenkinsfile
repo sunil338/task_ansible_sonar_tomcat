@@ -17,7 +17,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                dir('devops_login/devops_login') {
+                dir('devops_login') {
                     sh 'mvn clean install'
                 }
             }
@@ -25,7 +25,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                dir('devops_login/devops_login') {
+                dir('devops_login') {
                     withSonarQubeEnv('SonarQube') {
                         sh 'mvn sonar:sonar -Dsonar.projectKey=devops_git'
                     }
