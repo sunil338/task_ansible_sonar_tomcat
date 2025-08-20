@@ -1,5 +1,6 @@
 - hosts: all
   become: yes
+  become_user: sunil
   tasks:
     - name: Copy WAR to Tomcat
       copy:
