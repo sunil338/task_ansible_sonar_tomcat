@@ -9,7 +9,12 @@
         mode: '0644'
         remote_src: yes
 
-    - name: Restart Tomcat
-      service:
-        name: tomcat
-        state: restarted
+    - name: Make Tomcat startup script executable
+      file:
+        path: "/home/sunil/batch11/ansible/sonar/sonar_tomcat/bin/startup.sh"
+        mode: '0755'
+
+    - name: Start Tomcat
+      shell: /home/sunil/batch11/ansible/sonar/sonar_tomcat/bin/startup.sh
+
+  
