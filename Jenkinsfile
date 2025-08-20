@@ -10,7 +10,7 @@ pipeline {
             steps {
                 dir('devops_login') {
                     git branch: 'main',
-                        url: 'https://github.com/Arshad2502/task_ansible_sonar_tomcat'
+                        url: 'https://github.com/sunil338/task_ansible_sonar_tomcat.git'
                 }
             }
         }
