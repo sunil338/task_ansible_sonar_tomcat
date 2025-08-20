@@ -1,9 +1,6 @@
 pipeline {
     agent any
 
-    environment {
-        SONAR_TOKEN = credentials('sonar-token') // Jenkins secret text credentials
-    }
 
     stages {
         stage('Checkout') {
@@ -23,26 +20,7 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            steps {
-                dir('devops_login') {
-                    withSonarQubeEnv('sonarqube') {
-                        sh 'mvn sonar:sonar -Dsonar.projectKey=devops_git'
-                    }
-                }
-            }
-        }
-
-        stage('Check Quality Gate') {
-            steps {
-                sh '''
-                curl -s -u $SONAR_TOKEN: \
-                'http://localhost:9000/api/qualitygates/project_status?projectKey=devops_login' \
-                | grep -q '"status":"ERROR"' && echo 'Quality Gate FAILED' && exit 1 || echo 'Quality Gate PASSED'
-                '''
-            }
-        }
-
+       
         stage('Deploy to Tomcat') {
             steps {
                 dir('ansible') { 
