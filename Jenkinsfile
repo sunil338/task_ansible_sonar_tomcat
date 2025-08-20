@@ -26,7 +26,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 dir('devops_login') {
-                    withSonarQubeEnv('SonarQube') {
+                    withSonarQubeEnv('sonarqube') {
                         sh 'mvn sonar:sonar -Dsonar.projectKey=devops_git'
                     }
                 }
