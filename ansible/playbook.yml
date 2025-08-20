@@ -1,25 +1,13 @@
----
-- name: Deploy WAR to Tomcat
-  hosts: local
+- hosts: all
   become: yes
-  become_user: arshad   
-
-  vars:
-    war_source: "/var/lib/jenkins/workspace/trial/devops_login/target/devops_login-0.0.2-SNAPSHOT.war"
-    tomcat_webapps: "/home/arshad/tomcat1/apache-tomcat-9.0.105/webapps/"
-
   tasks:
-    - name: Copy WAR file to Tomcat webapps
+    - name: Copy WAR to Tomcat
       copy:
-        src: "{{ war_source }}"
-        dest: "{{ tomcat_webapps }}/"
+        src: /var/lib/jenkins/workspace/sdlc/devops_login/target/devops_login-0.0.2-SNAPSHOT.war
+        dest: /home/sunil/batch11/ansible/sonar/sonar_tomcat/webapps
         mode: '0644'
-        remote_src: yes
 
-    - name: Make Tomcat startup script executable
-      file:
-        path: "/home/arshad/tomcat1/apache-tomcat-9.0.105/bin/startup.sh"
-        mode: '0755'
-
-    - name: Start Tomcat
-      shell: /home/arshad/tomcat1/apache-tomcat-9.0.105/bin/startup.sh
+    - name: Restart Tomcat
+      service:
+        name: tomcat
+        state: restarted
